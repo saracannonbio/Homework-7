@@ -31,7 +31,6 @@ TFF = (1/xmax)*(x)  #linear fitness function
 plot(TFF, type='l', xlab=('Energy reserves (x) at time t = T'), ylab=('Fitness at time t = T'))
 
 #solve SDPE using backwards iteration for times t<T
-f = zeros(7,1)
 
 #Initiate matrices to store results
 
