@@ -37,3 +37,30 @@ plot(TFF, type='l', xlab=('Energy reserves (x) at time t = T'), ylab=('Fitness a
 F = array(0,dim=c(xmax,T));
 D = array(0,dim=c(xmax,T));
 
+#Create for-loops and if loops
+
+if EX = 1, p = p_A;
+elseif EX = 2, p = p_B
+
+for t = (T-1):-1:1{
+for x = xcrit+1:xmax
+f_no_prey = F(max(xcrit,x-a),t+1);
+for i = 1:nprey
+f_ignore = f_no_prey;
+f_attack = C(i) * F(max(xcrit,min(xmax,x-a*tau(i)+E(i))),min(T,t+tau(i)))+(1-C(i))*f_no_prey;
+if f_attack>=f_ignore
+f(i)=p(i)*f_attack;
+D(x,t,i) = 1;
+else
+  f(i) = p(i)*f_ignore;
+D(x,t,i) = 0;
+
+F(x,t) = (1-sum(p))*f_no_prey+sum(f);
+
+if EX == 1
+F_A = F;
+D_A = D;
+elseif EX == 2
+FB = F;
+D_B = D
+
