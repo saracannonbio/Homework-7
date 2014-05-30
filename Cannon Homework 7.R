@@ -11,43 +11,28 @@ dat = read.csv('/Users/saracannon/Documents/Quantitative Ecology/Homework 7/Stic
 
 #Program parameter values into R
 
-T = dat[1,3]
-xcrit = dat[2,3]
-xmax = dat[3,3]
-a = dat[4,3] 
-#Note: Tim made some of his parameters into arrays. Why?
-E1 = dat[5,3]
-E2 = dat[6,3]
-E3 = dat[7,3]
-E4 = dat[8,3]
-E5 = dat[9,3]
-E6 = dat[10,3]
-E7 = dat[11,3]
-tau1 = dat[12,3]
-tau2 = dat[13,3]
-tau3 = dat[14,3]
-tau4 = dat[15,3]
-tau5 = dat[16,3]
-tau6 = dat[17,3]
-tau7 = dat[18,3]
-p_A1 = dat[19,3]
-p_A2 = dat[20,3]
-p_A3 = dat[21,3]
-p_A4 = dat[22,3]
-p_A5 = dat[23,3]
-p_A6 = dat[24,3]
-p_A7 = dat[25,3]
-p_B1 = dat[26,3]
-p_B2 = dat[27,3]
-p_B3 = dat[28,3]
-p_B4 = dat[29,3]
-p_B5 = dat[30,3]
-p_B6 = dat[31,3]
-p_B7 = dat[32,3]
-C1 = dat[33,3]
-C2 = dat[34,3]
-C3 = dat[35,3]
-C4 = dat[36,3]
-C5 = dat[37,3]
-C6 = dat[38,3]
-C7 = dat[39,3]
+T = 360
+xmax = 450
+xcrit = 1
+a = 1
+E = c(10, 20, 40, 80, 130, 180, 260)
+tau = c(1, 1, 2, 4, 10, 27, 70)
+p_A = c()
+p_B = c()
+C = c()
+nprey = length(C);
+sizes = c(3:9);
+
+#Terminal fitness functions, linear and non-linear
+x = (1:max)
+TFF = (1/max)*(x)  #linear fitness function
+
+#Create figure to show shape of TFF
+plot(TFF)
+xlabel('Energy reserves (x) at time t = T')
+ylabel('Fitness at time t = T')
+
+#solve SDPE using backwards iteration for times t<T
+f = zeros(7,1)
+%Initialize matrices to store results
+
