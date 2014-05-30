@@ -64,3 +64,18 @@ elseif EX == 2
 FB = F;
 D_B = D
 
+
+
+#Answers should show:
+#For size class 1, always attack/eat the prey
+#Size classes 3 and 4, almost always attack (except when there are blue)
+#Size class 5 and 6, full gut contents correspond with when you should ignore 
+#mostly approaching the terminal time
+#For size class 7, should ignore over half of the time.
+
+
+
+#Problem 2
+
+#Run for Monte Carlo simulations
+
