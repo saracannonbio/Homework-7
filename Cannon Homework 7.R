@@ -51,21 +51,23 @@ for (t in seq((T-1),1,-1)) {
     f_ignore = f_no_prey;
     f_attack = C(i) * F(max(xcrit,min(xmax,x-a*tau(i)+E(i))),min(T,t+tau(i)))+(1-C(i))*f_no_prey;
 }
-if f_attack>=f_ignore
+if (f_attack>=f_ignore) {
 f(i)=p(i)*f_attack;
 D(x,t,i) = 1;
 else
   f(i) = p(i)*f_ignore;
 D(x,t,i) = 0;
+}
 
 F(x,t) = (1-sum(p))*f_no_prey+sum(f);
 
-if EX == 1
+if (EX[1]) {
 F_A = F;
 D_A = D;
-elseif EX == 2
+} else (EX[2]) {
 FB = F;
 D_B = D
+}
 
 
 
