@@ -9,7 +9,7 @@ rm(list=ls())
 reps = 10000
 dat = read.csv('/Users/saracannon/Documents/Quantitative Ecology/Homework 7/Stickleback SDM params.csv',header=T)
 
-#Program parameter values into R
+#Program parameter values
 
 T = 360
 xmax = 450
@@ -24,15 +24,17 @@ nprey = length(C);
 sizes = c(3:9);
 
 #Terminal fitness functions, linear and non-linear
-x = (1:max)
-TFF = (1/max)*(x)  #linear fitness function
+x = (1:xmax)
+TFF = (1/xmax)*(x)  #linear fitness function
 
 #Create figure to show shape of TFF
-plot(TFF)
-xlabel('Energy reserves (x) at time t = T')
-ylabel('Fitness at time t = T')
+plot(TFF, type='l', xlab=('Energy reserves (x) at time t = T'), ylab=('Fitness at time t = T'))
 
 #solve SDPE using backwards iteration for times t<T
 f = zeros(7,1)
-%Initialize matrices to store results
+
+#Initiate matrices to store results
+
+F = array(0,dim=c(xmax,T));
+D = array(0,dim=c(xmax,T));
 
