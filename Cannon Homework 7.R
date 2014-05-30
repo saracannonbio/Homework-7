@@ -79,3 +79,79 @@ D_B = D
 
 #Run for Monte Carlo simulations
 
+reps = 1000
+Prop_died = [0,0]
+Decis = zeros(nprey,2) #decisions the fish make
+Endstate = zeros (reps,2)
+MC_fish_x={}
+
+for EX = 1:2 {
+  AF = array()) #attack frequency, should be 7 rows and 2 columns of 0's
+  MC_fish = array(0,dim=c(reps,T)) #make a matrix of 0s
+MC_fish(:,1) = 50;
+for r = 1:reps {
+  if EX == 1
+  D = D_A;
+  p = p_A;
+  else
+    D = D_B
+  p = p_B;
+}
+    #for random prey encounters, create vector of expected prey encounters
+p_enc = [p 1-sum(p)];
+E_pr = cumsum(p_enc);
+t=1;
+while t<T {
+  x = round(MC_fish(r,t));
+  #if i <=7, prey type i is encountered
+  #if i = 8, no prey are encountered in that time step
+  rval = rand();
+  i = sum(rval>=E_pr)+1;
+  if i<=7
+  d = D(x,t,i);
+  if d == 1
+  AF(i,1) = AF(i,1)+1;
+  rval2=rand();
+  if rval2<C(i)
+  for tt = 1:tau(i)
+  t = t+1
+  if t<=T
+  MC_fish(r,t) = min(xmax,MC_fish(r,t-1) - A + E(i)/tau(i));
+}
+}
+else {
+  t = t+1;
+MC_fish(r,t) = x-a;
+}
+else {
+  AF(i,2) = AF(i,2)+1;
+  t = t+1
+  MC_fish(r,t) = x-a
+}
+else {
+  t = t+1
+  MC_fish(r,t) = x-A;
+}
+t = min(t,T);
+if {
+  MC_fish(r,t) <=xcrit
+MC_fish(r,t) = 0
+Deaths = Deaths+1
+t = T
+elseif {
+  MC_fish(r,t) > xmax
+  MC_fish(r,t) = xmax;
+}
+}
+Endstate(r,EX) = round(MC_fish(r,T));
+}
+prop_died(EX) = Deaths/reps;
+Decis(:,EX) = AF(:,1)/AF(:,1)+AF(:,2));
+MC_fish_x{EX} = MC_fish;
+}
+
+bar(sizes,Decis)
+xlim([2.5,9.5])
+xlab = 'Prey size (mm)'
+ylab = 'Frequency of attack'
+legend = 'Experiment A: high prey density','Experiment B: low prey density'
