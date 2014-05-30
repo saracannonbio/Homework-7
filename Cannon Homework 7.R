@@ -4,11 +4,6 @@ rm(list=ls())
 
 #Problem 1
 
-#load parameter values from spreadsheet
-
-reps = 10000
-dat = read.csv('/Users/saracannon/Documents/Quantitative Ecology/Homework 7/Stickleback SDM params.csv',header=T)
-
 #Program parameter values
 
 T = 360
@@ -22,13 +17,14 @@ p_B = c(0.03,0.07,0.02,0.02,0.0225,0.075,0.0083)
 C = c(1,0.98,0.9,0.58,0.33,0.2,0.12)
 nprey = length(C);
 sizes = c(3:9);
+EX=c(1:2)
 
 #Terminal fitness functions, linear and non-linear
 x = (1:xmax)
 TFF = (1/xmax)*(x)  #linear fitness function
 
 #Create figure to show shape of TFF
-plot(TFF, type='l', xlab=('Energy reserves (x) at time t = T'), ylab=('Fitness at time t = T'))
+plot(TFF,type='l',main='Terminal Fitness Function',xlab='Energy reserves (x) at time t = T',ylab='Fitness at time t = T')
 
 #solve SDPE using backwards iteration for times t<T
 
@@ -37,17 +33,24 @@ plot(TFF, type='l', xlab=('Energy reserves (x) at time t = T'), ylab=('Fitness a
 F = array(0,dim=c(xmax,T));
 D = array(0,dim=c(xmax,T));
 
-#Create for-loops and if loops
+#Tell R to differentiate between experiment 1 and experiment 2 
 
-if EX = 1, p = p_A;
-elseif EX = 2, p = p_B
+if (EX[1]) {
+  p=p_A
+}
+if (EX[2]) {
+  p=p_B
+}
 
-for t = (T-1):-1:1{
-for x = xcrit+1:xmax
-f_no_prey = F(max(xcrit,x-a),t+1);
-for i = 1:nprey
-f_ignore = f_no_prey;
-f_attack = C(i) * F(max(xcrit,min(xmax,x-a*tau(i)+E(i))),min(T,t+tau(i)))+(1-C(i))*f_no_prey;
+
+for (t in seq((T-1),1,-1)) {
+  for (x in seq(xcrit+1:xmax){
+    if_no_prey = F(max(xcrit,x-a),t+1);
+  }
+  for (i in 1:nprey){
+    f_ignore = f_no_prey;
+    f_attack = C(i) * F(max(xcrit,min(xmax,x-a*tau(i)+E(i))),min(T,t+tau(i)))+(1-C(i))*f_no_prey;
+}
 if f_attack>=f_ignore
 f(i)=p(i)*f_attack;
 D(x,t,i) = 1;
